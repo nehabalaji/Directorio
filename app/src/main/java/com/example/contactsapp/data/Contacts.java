@@ -1,4 +1,4 @@
-package com.example.contactsapp;
+package com.example.contactsapp.data;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

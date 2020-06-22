@@ -1,10 +1,12 @@
-package com.example.contactsapp;
+package com.example.contactsapp.database;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
+
+import com.example.contactsapp.Contacts;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

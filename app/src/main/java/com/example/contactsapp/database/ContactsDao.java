@@ -1,4 +1,4 @@
-package com.example.contactsapp;
+package com.example.contactsapp.database;
 
 import androidx.paging.DataSource;
 import androidx.room.Dao;
@@ -6,6 +6,8 @@ import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
+
+import com.example.contactsapp.Contacts;
 
 @Dao
 public interface ContactsDao {
