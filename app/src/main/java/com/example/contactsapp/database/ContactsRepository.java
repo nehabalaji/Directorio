@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
-import com.example.contactsapp.Contacts;
+import com.example.contactsapp.data.Contacts;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

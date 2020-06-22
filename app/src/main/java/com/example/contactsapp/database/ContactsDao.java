@@ -7,7 +7,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.contactsapp.Contacts;
+
+import com.example.contactsapp.data.Contacts;
 
 @Dao
 public interface ContactsDao {
