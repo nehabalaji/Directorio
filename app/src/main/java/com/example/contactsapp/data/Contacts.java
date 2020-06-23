@@ -101,6 +101,10 @@ public class Contacts {
     public void setCollege(String college) {
         College = college;
     }
+
+    public boolean isContactEqual(Contacts contacts){
+        return ((Name==contacts.Name) && (Number==contacts.Number) && (email==contacts.email) && (Age==contacts.Age) && (Gender==contacts.Gender) && (City==contacts.City) && (College==contacts.College));
+    }
 }
 
 

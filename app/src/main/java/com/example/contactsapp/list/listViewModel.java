@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModel;
 import androidx.paging.PagedList;
 
 import com.example.contactsapp.data.Contacts;
@@ -21,11 +22,11 @@ public class listViewModel extends AndroidViewModel {
         pagedListLiveData = contactsRepository.getAllContacts();
     }
 
-    public void insertTask(Contacts contacts){
+    public void insertContact(Contacts contacts){
         contactsRepository.insertContact(contacts);
     }
 
-    public void deleteTask(Contacts contacts){
+    public void deleteContact(Contacts contacts){
         contactsRepository.deleteContact(contacts);
     }
 }

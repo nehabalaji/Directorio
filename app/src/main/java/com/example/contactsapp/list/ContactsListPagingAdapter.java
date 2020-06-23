@@ -14,9 +14,10 @@ import com.example.contactsapp.R;
 import com.example.contactsapp.data.Contacts;
 
 public class ContactsListPagingAdapter extends PagedListAdapter<Contacts, listViewHolder> {
+    private ClickListener clickListener;
 
     protected ContactsListPagingAdapter() {
-        super(diffCallback);
+        super(DIFF_CALLBACK);
     }
 
     @NonNull
@@ -34,4 +35,27 @@ public class ContactsListPagingAdapter extends PagedListAdapter<Contacts, listVi
             holder.bind(currentContact);
         }
     }
+
+    public void setOnItemClickListener(ClickListener clickListener){
+        this.clickListener = clickListener;
+    }
+    public interface ClickListener{
+        void itemClick(int position,View view);
+    }
+    public  Contacts getContactAtPosition(int position){
+        return getItem(position);
+    }
+
+
+    private static DiffUtil.ItemCallback<Contacts> DIFF_CALLBACK = new DiffUtil.ItemCallback<Contacts>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Contacts oldItem, @NonNull Contacts newItem) {
+            return (oldItem.getName().equals(newItem.getName()));
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Contacts oldItem, @NonNull Contacts newItem) {
+            return oldItem.isContactEqual(newItem);
+        }
+    };
 }
