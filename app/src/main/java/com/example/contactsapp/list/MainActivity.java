@@ -14,8 +14,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.contactsapp.AddActivity;
 import com.example.contactsapp.R;
+import com.example.contactsapp.addData.AddActivity;
 import com.example.contactsapp.data.Contacts;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.BaseTransientBottomBar;

@@ -41,6 +41,11 @@ public class Contacts {
         this.College = college;
     }
 
+    public Contacts(String name, String number){
+        this.Name = name;
+        this.Number = number;
+    }
+
     public Contacts(){
 
     }
