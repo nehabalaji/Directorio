@@ -3,6 +3,7 @@ package com.example.contactsapp.data;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "Contacts")
@@ -31,7 +32,8 @@ public class Contacts {
     @ColumnInfo(name = "College")
     private String College;
 
-    public Contacts(@NonNull String name, String number, String email, String age, String gender, String city, String college) {
+    @Ignore
+    public Contacts(String name, String number, String email, String age, String gender, String city, String college) {
         this.Name = name;
         this.Number = number;
         this.email = email;

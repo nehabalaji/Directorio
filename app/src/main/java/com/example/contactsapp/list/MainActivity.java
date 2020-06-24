@@ -26,10 +26,10 @@ public class MainActivity extends AppCompatActivity {
     private final static int NEW_DATA_REQUEST_CODE =1;
     private final static int UPDATE_DATA_REQUEST_CODE = 2;
 
-    public static final String EXTRA_DATA_NAME = "extra_task_name";
-    public static final String EXTRA_DATA_PHONE = "extra_task_phone";
+    public static final String EXTRA_DATA_NAME = "extra_contact_name";
+    public static final String EXTRA_DATA_PHONE = "extra_contact_phone";
 
-    public listViewModel mListViewModel;
+    private listViewModel mListViewModel;
     private Contacts contacts;
 
     @Override

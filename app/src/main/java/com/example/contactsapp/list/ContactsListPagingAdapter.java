@@ -29,10 +29,18 @@ public class ContactsListPagingAdapter extends PagedListAdapter<Contacts, listVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull listViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull listViewHolder holder, final int position) {
         final Contacts currentContact = getItem(position);
         if(currentContact!=null){
             holder.bind(currentContact);
+            if(clickListener!=null){
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        clickListener.itemClick(position, v);
+                    }
+                });
+            }
         }
     }
 

@@ -14,7 +14,7 @@ import com.example.contactsapp.database.ContactsRepository;
 public class listViewModel extends AndroidViewModel {
 
     private ContactsRepository contactsRepository;
-    LiveData<PagedList<Contacts>> pagedListLiveData;
+    public LiveData<PagedList<Contacts>> pagedListLiveData;
 
     public listViewModel(@NonNull Application application) {
         super(application);

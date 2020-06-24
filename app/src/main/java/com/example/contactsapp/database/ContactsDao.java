@@ -22,6 +22,6 @@ public interface ContactsDao {
     @Delete
     void deleteContact(Contacts contacts);
 
-    @Query("Select * from Contacts ORDER BY Name asc")
+    @Query("Select * from Contacts")
     DataSource.Factory<Integer,Contacts> getAllContacts();
 }
