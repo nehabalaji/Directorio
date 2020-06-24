@@ -1,0 +1,20 @@
+[
+  {
+    "Name":"Sheldon",
+    "Phone":"9090909090",
+    "City":"Pasadena",
+    "College":"Caltech",
+    "Age":"20",
+    "Gender":"Male",
+    "Email":"sheldoncooper@gmail.com"
+  },
+  {
+    "Name":"Amy",
+    "Phone":"8080808080",
+    "City":"Cambridge",
+    "College":"Harvard",
+    "Age":"20",
+    "Gender":"Female",
+    "Email":"amyfarrahfowler@gmail.com"
+  }
+]

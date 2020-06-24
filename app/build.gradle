@@ -32,10 +32,8 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    //Recycler view dependency
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
-    //material design dependency
     implementation 'com.google.android.material:material:1.1.0'
 
     def roomVersion = "2.2.5"
@@ -43,8 +41,14 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
-    //Paging Library
     def paging_version = "2.1.2"
     implementation "androidx.paging:paging-runtime:$paging_version"
+
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    def lifecycle_version = "2.2.0"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata:$lifecycle_version"
 }

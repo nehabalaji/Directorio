@@ -1,13 +1,23 @@
 package com.example.contactsapp.database;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 
+import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.contactsapp.data.Contacts;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,14 +30,64 @@ public abstract class ContactsDatabase extends RoomDatabase {
 
     public static ContactsDatabase getInstance(final Context context){
         if(INSTANCE==null){
-            synchronized (INSTANCE){
+            synchronized (ContactsDatabase.class){
                 if (INSTANCE==null){
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             ContactsDatabase.class,
-                            "ContactsDatabase").fallbackToDestructiveMigration().build();
+                            "ContactsDatabase")
+                            .addCallback(new Callback() {
+                                @Override
+                                public void onCreate(@NonNull SupportSQLiteDatabase db) {
+                                    super.onCreate(db);
+                                    executorService.execute(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            prePopulateDb(context.getAssets(), INSTANCE.contactsDao());
+                                        }
+                                    });
+                                }
+                            })
+                            .fallbackToDestructiveMigration().build();
                 }
             }
         }
         return INSTANCE;
+    }
+
+    private static void prePopulateDb(AssetManager assetManager, ContactsDao contactsDao){
+        BufferedReader bufferedReader = null;
+        StringBuilder stringBuilder = new StringBuilder();
+        String json = "";
+        try {
+            bufferedReader = new BufferedReader(
+                    new InputStreamReader(assetManager.open("contactData.json"))
+            );
+            String mLine;
+            while ((mLine = bufferedReader.readLine()) != null){
+                stringBuilder.append(mLine);
+            }
+            json = stringBuilder.toString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+            if (bufferedReader != null){
+                try{
+                    bufferedReader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for(int i=0; i<jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                String name = jsonObject.getString("Name");
+                String phone = jsonObject.getString("Phone");
+                contactsDao.insertContact(new Contacts(name, phone));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
