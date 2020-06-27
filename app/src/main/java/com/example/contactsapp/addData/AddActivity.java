@@ -77,15 +77,15 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             }
 
             if(!ContactEmail.isEmpty()){
-                Phone.setText(ContactEmail);
+                Email.setText(ContactEmail);
             }
 
             if(!ContactCity.isEmpty()){
-                Phone.setText(ContactCity);
+                City.setText(ContactCity);
             }
 
             if(!ContactCollege.isEmpty()){
-                Phone.setText(ContactCollege);
+                College.setText(ContactCollege);
             }
 
 
@@ -110,7 +110,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                         mAddViewModel.updateContacts(contacts);
                     }
                     else{
-                        Contacts contacts = new Contacts(name, phone);
+                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college);
                         mAddViewModel.insertContact(contacts);
                     }
                 }
