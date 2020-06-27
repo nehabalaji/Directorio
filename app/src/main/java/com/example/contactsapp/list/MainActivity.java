@@ -29,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_DATA_NAME = "extra_contact_name";
     public static final String EXTRA_DATA_PHONE = "extra_contact_phone";
+    public static final String EXTRA_DATA_EMAIL = "extra_contact_email";
+    public static final String EXTRA_DATA_AGE = "extra_contact_age";
+    public static final String EXTRA_DATA_GENDER = "extra_contact_gender";
+    public static final String EXTRA_DATA_CITY = "extra_contact_city";
+    public static final String EXTRA_DATA_COLLEGE = "extra_contact_college";
+
 
     private listViewModel mListViewModel;
     private Contacts contacts;
@@ -95,9 +101,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void launchUpdateContactActivity(Contacts currentContact) {
-        Intent intent = new Intent(this,AddActivity.class);
+        Intent intent = new Intent(this,DetailsActivity.class);
         intent.putExtra(EXTRA_DATA_NAME,currentContact.getName());
         intent.putExtra(EXTRA_DATA_PHONE,currentContact.getNumber());
+        intent.putExtra(EXTRA_DATA_EMAIL,currentContact.getEmail());
+        intent.putExtra(EXTRA_DATA_AGE,currentContact.getAge());
+        intent.putExtra(EXTRA_DATA_GENDER,currentContact.getGender());
+        intent.putExtra(EXTRA_DATA_CITY,currentContact.getCity());
+        intent.putExtra(EXTRA_DATA_COLLEGE,currentContact.getCollege());
+
         startActivityForResult(intent,UPDATE_DATA_REQUEST_CODE);
     }
 }

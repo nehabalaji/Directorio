@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,10 +18,16 @@ import com.example.contactsapp.data.Contacts;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    public static final String EXTRA_DATA_NAME = "extra_task_name";
-    public static final String EXTRA_DATA_PHONE = "extra_task_phone";
+    public static final String EXTRA_DATA_NAME = "extra_contact_name";
+    public static final String EXTRA_DATA_PHONE = "extra_contact_phone";
+    public static final String EXTRA_DATA_EMAIL = "extra_contact_email";
+    public static final String EXTRA_DATA_AGE = "extra_contact_age";
+    public static final String EXTRA_DATA_GENDER = "extra_contact_gender";
+    public static final String EXTRA_DATA_CITY = "extra_contact_city";
+    public static final String EXTRA_DATA_COLLEGE = "extra_contact_college";
 
     private addViewModel mAddViewModel;
+    RadioButton radioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +43,18 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         final EditText City = findViewById(R.id.newCity);
         final EditText College = findViewById(R.id.newCollege);
         final EditText Email = findViewById(R.id.newEmail);
-        RadioGroup GenderGroup = findViewById(R.id.gender);
-        RadioButton radioButton = findViewById(R.id.radioButton1);
-        RadioButton radioButton1 = findViewById(R.id.radioButton2);
-        RadioButton radioButton2 = findViewById(R.id.radioButton3);
+        final RadioGroup GenderGroup = findViewById(R.id.gender);
+
         Button submit = findViewById(R.id.submit);
 
         if (extras!=null){
             String ContactName = extras.getString(EXTRA_DATA_NAME,"");
             String ContactPhone = extras.getString(EXTRA_DATA_PHONE, "");
+            String ContactEmail = extras.getString(EXTRA_DATA_EMAIL, "");
+            String ContactAge = extras.getString(EXTRA_DATA_AGE, "");
+            String ContactGender = extras.getString(EXTRA_DATA_GENDER, "");
+            String ContactCity = extras.getString(EXTRA_DATA_CITY, "");
+            String ContactCollege = extras.getString(EXTRA_DATA_COLLEGE, "");
 
             if(!ContactName.isEmpty()){
                 Name.setText(ContactName);
@@ -54,6 +64,31 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 Phone.setText(ContactPhone);
             }
 
+            if(!ContactAge.isEmpty()){
+                Age.setText(ContactAge);
+            }
+
+            if(!ContactGender.isEmpty()){
+                GenderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        radioButton = findViewById(checkedId);                    }
+                });
+            }
+
+            if(!ContactEmail.isEmpty()){
+                Phone.setText(ContactEmail);
+            }
+
+            if(!ContactCity.isEmpty()){
+                Phone.setText(ContactCity);
+            }
+
+            if(!ContactCollege.isEmpty()){
+                Phone.setText(ContactCollege);
+            }
+
+
             submit.setText("Update");
         }
 
@@ -62,9 +97,16 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             public void onClick(View v) {
                 String name = Name.getText().toString();
                 String phone = Phone.getText().toString();
-                if(!name.isEmpty() && !phone.isEmpty()){
+                String email = Email.getText().toString();
+                String age = Age.getText().toString();
+                int genderId = GenderGroup.getCheckedRadioButtonId();
+                radioButton = (RadioButton) findViewById(genderId);
+                String gender = radioButton.getText().toString();
+                String city = City.getText().toString();
+                String college = College.getText().toString();
+                if(!name.isEmpty() && !phone.isEmpty() && !age.isEmpty() && !gender.isEmpty() && !city.isEmpty() && !college.isEmpty() && !email.isEmpty()){
                     if(extras!=null){
-                        Contacts contacts = new Contacts(name, phone);
+                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college);
                         mAddViewModel.updateContacts(contacts);
                     }
                     else{

@@ -84,7 +84,13 @@ public abstract class ContactsDatabase extends RoomDatabase {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("Name");
                 String phone = jsonObject.getString("Phone");
-                contactsDao.insertContact(new Contacts(name, phone));
+                String email = jsonObject.getString("Email");
+                String age = jsonObject.getString("Age");
+                String gender = jsonObject.getString("Gender");
+                String city = jsonObject.getString("City");
+                String college = jsonObject.getString("College");
+
+                contactsDao.insertContact(new Contacts(name, phone, email, age, gender, city, college));
             }
         } catch (JSONException e) {
             e.printStackTrace();
