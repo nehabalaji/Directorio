@@ -1,6 +1,7 @@
 package com.example.contactsapp.list;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
@@ -12,8 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.contactsapp.R;
 import com.example.contactsapp.addData.AddActivity;
@@ -23,6 +27,8 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
+
+
 
     private final static int NEW_DATA_REQUEST_CODE =1;
     private final static int UPDATE_DATA_REQUEST_CODE = 2;
@@ -43,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         FloatingActionButton addButton = findViewById(R.id.add);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -99,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 launchUpdateContactActivity(currentContact);
             }
         });
+
     }
     private void launchUpdateContactActivity(Contacts currentContact) {
         Intent intent = new Intent(this,DetailsActivity.class);

@@ -3,15 +3,18 @@
     package="com.example.contactsapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@mipmap/icon"
+        android:label="ContactsApp"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".list.DetailsActivity"></activity>
+        <activity android:name=".list.DetailsActivity"
+            android:theme="@style/AppTheme2"
+            android:label=""/>
         <activity android:name=".addData.AddActivity" />
         <activity android:name=".list.MainActivity">
             <intent-filter>

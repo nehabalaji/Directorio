@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.contactsapp.R;
@@ -28,6 +29,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
     private addViewModel mAddViewModel;
     RadioButton radioButton;
+    int imageID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +47,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         final EditText Email = findViewById(R.id.newEmail);
         final RadioGroup GenderGroup = findViewById(R.id.gender);
 
-        Button submit = findViewById(R.id.submit);
+        TextView submit = findViewById(R.id.submit);
 
         if (extras!=null){
             String ContactName = extras.getString(EXTRA_DATA_NAME,"");
@@ -55,6 +57,13 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             String ContactGender = extras.getString(EXTRA_DATA_GENDER, "");
             String ContactCity = extras.getString(EXTRA_DATA_CITY, "");
             String ContactCollege = extras.getString(EXTRA_DATA_COLLEGE, "");
+
+
+            if(ContactGender.equals("Female")){
+                imageID = R.drawable.girl;
+            }
+            else
+                imageID = R.drawable.girl;
 
             if(!ContactName.isEmpty()){
                 Name.setText(ContactName);
@@ -106,12 +115,13 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 String college = College.getText().toString();
                 if(!name.isEmpty() && !phone.isEmpty() && !age.isEmpty() && !gender.isEmpty() && !city.isEmpty() && !college.isEmpty() && !email.isEmpty()){
                     if(extras!=null){
-                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college);
+                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college, imageID);
                         mAddViewModel.updateContacts(contacts);
                     }
                     else{
-                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college);
+                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college, imageID);
                         mAddViewModel.insertContact(contacts);
+                        Toast.makeText(getApplicationContext(), "New Contact Added", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{

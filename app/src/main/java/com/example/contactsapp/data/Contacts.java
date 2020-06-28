@@ -32,8 +32,11 @@ public class Contacts {
     @ColumnInfo(name = "College")
     private String College;
 
+    @ColumnInfo(name = "Image")
+    private int Image;
+
     @Ignore
-    public Contacts(String name, String number, String email, String age, String gender, String city, String college) {
+    public Contacts(String name, String number, String email, String age, String gender, String city, String college, int imageId)  {
         this.Name = name;
         this.Number = number;
         this.email = email;
@@ -41,6 +44,7 @@ public class Contacts {
         this.Gender = gender;
         this.City = city;
         this.College = college;
+        this.Image = imageId;
     }
 
     public Contacts(String name, String number){
@@ -107,6 +111,14 @@ public class Contacts {
 
     public void setCollege(String college) {
         College = college;
+    }
+
+    public int getImage() {
+        return Image;
+    }
+
+    public void setImage(int image) {
+        Image = image;
     }
 
     public boolean isContactEqual(Contacts contacts){

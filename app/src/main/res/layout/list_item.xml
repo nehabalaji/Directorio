@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         app:cardCornerRadius="10dp"
         android:layout_gravity="center"
+        android:backgroundTint="@color/Pink"
         android:outlineSpotShadowColor="#000000"
         android:id="@+id/card_view"
         >
@@ -27,8 +28,8 @@
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
                 android:layout_marginStart="24dp"
+                android:id="@+id/img"
                 android:layout_marginEnd="24dp"
-                android:src="@drawable/background"
                 android:layout_marginTop="8dp"/>
 
     <TextView

@@ -2,6 +2,7 @@ package com.example.contactsapp.database;
 
 import android.content.Context;
 import android.content.res.AssetManager;
+import android.media.Image;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -9,6 +10,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.contactsapp.R;
 import com.example.contactsapp.data.Contacts;
 
 import org.json.JSONArray;
@@ -80,6 +82,7 @@ public abstract class ContactsDatabase extends RoomDatabase {
         }
         try {
             JSONArray jsonArray = new JSONArray(json);
+            int imageId;
             for(int i=0; i<jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String name = jsonObject.getString("Name");
@@ -89,8 +92,12 @@ public abstract class ContactsDatabase extends RoomDatabase {
                 String gender = jsonObject.getString("Gender");
                 String city = jsonObject.getString("City");
                 String college = jsonObject.getString("College");
+                if(gender.equals("Female")){
+                    imageId = R.drawable.girl;
+                }
+                else imageId = R.drawable.girl;
 
-                contactsDao.insertContact(new Contacts(name, phone, email, age, gender, city, college));
+                contactsDao.insertContact(new Contacts(name, phone, email, age, gender, city, college, imageId));
             }
         } catch (JSONException e) {
             e.printStackTrace();
