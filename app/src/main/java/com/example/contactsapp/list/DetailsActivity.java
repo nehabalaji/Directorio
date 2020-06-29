@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.Manifest;
 import android.content.Intent;
@@ -12,23 +15,32 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telecom.Call;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.contactsapp.R;
 import com.example.contactsapp.addData.AddActivity;
 import com.example.contactsapp.data.Contacts;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import java.security.Permissions;
+import java.security.acl.Permission;
+
 public class DetailsActivity extends AppCompatActivity {
     ActionBar actionBar;
     TextView nameTV, numberTV, ageTV, emailTV, cityTV, collegeTV, genderTV;
     ImageView imageView;
-    Contacts contacts;
+    Contacts contact;
+    int imageId;
+    String ContactPhone, ContactAge, ContactGender, ContactEmail, ContactCity, ContactCollege, ContactName;
+    long contactId;
     private final static int NEW_DATA_REQUEST_CODE = 1;
     private final static int UPDATE_DATA_REQUEST_CODE = 2;
 
@@ -39,6 +51,7 @@ public class DetailsActivity extends AppCompatActivity {
     public static final String EXTRA_DATA_GENDER = "extra_contact_gender";
     public static final String EXTRA_DATA_CITY = "extra_contact_city";
     public static final String EXTRA_DATA_COLLEGE = "extra_contact_college";
+    public static final String EXTRA_DATA_ID = "extra_data_id";
 
     ExtendedFloatingActionButton button;
 
@@ -70,33 +83,36 @@ public class DetailsActivity extends AppCompatActivity {
                     //                                          int[] grantResults)
                     // to handle the case where the user grants the permission. See the documentation
                     // for ActivityCompat#requestPermissions for more details.
+//                    requestPermissions(, 1);
                     return;
                 }
                 startActivity(intent);
             }
         });
 
+
         actionBar = getSupportActionBar();
-        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#F1F1F1"));
+        final ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#F1F1F1"));
         actionBar.setBackgroundDrawable(colorDrawable);
 
         final Bundle extras = getIntent().getExtras();
 
         if (extras!=null) {
-            String ContactName = extras.getString(EXTRA_DATA_NAME, "");
-            String ContactPhone = extras.getString(EXTRA_DATA_PHONE, "");
-            String ContactEmail = extras.getString(EXTRA_DATA_EMAIL, "");
-            String ContactAge = extras.getString(EXTRA_DATA_AGE, "");
-            String ContactGender = extras.getString(EXTRA_DATA_GENDER, "");
-            String ContactCity = extras.getString(EXTRA_DATA_CITY, "");
-            String ContactCollege = extras.getString(EXTRA_DATA_COLLEGE, "");
-            int imageId;
-            if(ContactGender.equals("Female")){
-                imageId = R.drawable.girl;
-            }
-            else imageId = R.drawable.girl;
 
-            contacts = new Contacts(ContactName, ContactPhone, ContactEmail, ContactAge, ContactGender, ContactCity, ContactCollege, imageId);
+                             ContactName = extras.getString(EXTRA_DATA_NAME, "");
+                             ContactPhone =extras.getString(EXTRA_DATA_PHONE, "");
+                             ContactEmail = extras.getString(EXTRA_DATA_EMAIL, "");
+                             ContactAge = extras.getString(EXTRA_DATA_AGE, "");
+                             ContactGender =  extras.getString(EXTRA_DATA_GENDER, "");
+                             ContactCity = extras.getString(EXTRA_DATA_CITY, "");
+                             ContactCollege = extras.getString(EXTRA_DATA_COLLEGE, "");
+                             contactId = extras.getLong(EXTRA_DATA_ID, 0L);
+                        if(ContactGender.equals("Female")){
+                        imageId = R.drawable.girl;
+                    }
+                    else imageId = R.drawable.girl;
+
+                    contact = new Contacts(ContactName, ContactPhone, ContactEmail, ContactAge, ContactGender, ContactCity, ContactCollege, imageId, contactId );
 
             if(!ContactName.isEmpty()){
                 nameTV.setText("Name : " +ContactName);
@@ -128,6 +144,7 @@ public class DetailsActivity extends AppCompatActivity {
 
             imageView.setImageResource(imageId);
         }
+
     }
 
     @Override
@@ -142,34 +159,33 @@ public class DetailsActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.edit:
                 Intent intent = new Intent(this, AddActivity.class);
-                intent.putExtra(EXTRA_DATA_NAME, contacts.getName());
-                intent.putExtra(EXTRA_DATA_PHONE,contacts.getNumber());
-                intent.putExtra(EXTRA_DATA_EMAIL,contacts.getEmail());
-                intent.putExtra(EXTRA_DATA_AGE,contacts.getAge());
-                intent.putExtra(EXTRA_DATA_GENDER,contacts.getGender());
-                intent.putExtra(EXTRA_DATA_CITY,contacts.getCity());
-                intent.putExtra(EXTRA_DATA_COLLEGE,contacts.getCollege());
+                intent.putExtra(EXTRA_DATA_ID, contact.getId());
+                intent.putExtra(EXTRA_DATA_NAME, contact.getName());
+                intent.putExtra(EXTRA_DATA_PHONE,contact.getNumber());
+                intent.putExtra(EXTRA_DATA_EMAIL,contact.getEmail());
+                intent.putExtra(EXTRA_DATA_AGE,contact.getAge());
+                intent.putExtra(EXTRA_DATA_GENDER,contact.getGender());
+                intent.putExtra(EXTRA_DATA_CITY,contact.getCity());
+                intent.putExtra(EXTRA_DATA_COLLEGE,contact.getCollege());
 
                 startActivityForResult(intent, UPDATE_DATA_REQUEST_CODE);
                 return true;
 
+
             case R.id.share:
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT,contacts.getName() +"\n"+ contacts.getNumber()
-                + "\n" + contacts.getAge() + "\n" + contacts.getGender() +"\n" + contacts.getEmail() + "\n"
-                + contacts.getCollege() + "\n" + contacts.getCity());
+                sharingIntent.putExtra(Intent.EXTRA_TEXT,contact.getName() +"\n"+ contact.getNumber()
+                + "\n" + contact.getAge() + "\n" + contact.getGender() +"\n" + contact.getEmail() + "\n"
+                + contact.getCollege() + "\n" + contact.getCity());
 
                 startActivity(Intent.createChooser(sharingIntent, "contact Details"));
+
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 
-    public void launchUpdateContact(Contacts contacts){
-
-    }
 }

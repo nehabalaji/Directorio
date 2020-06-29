@@ -10,7 +10,10 @@ import androidx.room.PrimaryKey;
 public class Contacts {
 
     @NonNull
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "Id")
+   private long Id;
+
     @ColumnInfo(name = "Name")
     private String Name;
 
@@ -36,7 +39,7 @@ public class Contacts {
     private int Image;
 
     @Ignore
-    public Contacts(String name, String number, String email, String age, String gender, String city, String college, int imageId)  {
+    public Contacts(String name, String number, String email, String age, String gender, String city, String college, int imageId, long Id)  {
         this.Name = name;
         this.Number = number;
         this.email = email;
@@ -45,6 +48,7 @@ public class Contacts {
         this.City = city;
         this.College = college;
         this.Image = imageId;
+        this.Id = Id;
     }
 
     public Contacts(String name, String number){
@@ -56,12 +60,19 @@ public class Contacts {
 
     }
 
-    @NonNull
+    public long getId() {
+        return Id;
+    }
+
+    public void setId(long id) {
+        Id = id;
+    }
+
     public String getName() {
         return Name;
     }
 
-    public void setName(@NonNull String name) {
+    public void setName(String name) {
         Name = name;
     }
 

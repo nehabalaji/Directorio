@@ -1,15 +1,20 @@
 package com.example.contactsapp.database;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
 import com.example.contactsapp.data.Contacts;
 
+import java.util.List;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class ContactsRepository {
 
@@ -48,6 +53,7 @@ public class ContactsRepository {
             @Override
             public void run() {
                 contactsDao.updateContact(contacts);
+
             }
         });
     }

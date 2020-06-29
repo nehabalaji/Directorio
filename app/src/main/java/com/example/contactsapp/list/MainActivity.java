@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_DATA_GENDER = "extra_contact_gender";
     public static final String EXTRA_DATA_CITY = "extra_contact_city";
     public static final String EXTRA_DATA_COLLEGE = "extra_contact_college";
-
+    public static final String EXTRA_DATA_ID = "extra_data_id";
 
     private listViewModel mListViewModel;
     private Contacts contacts;
@@ -111,7 +112,8 @@ public class MainActivity extends AppCompatActivity {
     }
     private void launchUpdateContactActivity(Contacts currentContact) {
         Intent intent = new Intent(this,DetailsActivity.class);
-        intent.putExtra(EXTRA_DATA_NAME,currentContact.getName());
+        intent.putExtra(EXTRA_DATA_ID,currentContact.getId());
+        intent.putExtra(EXTRA_DATA_NAME, currentContact.getName());
         intent.putExtra(EXTRA_DATA_PHONE,currentContact.getNumber());
         intent.putExtra(EXTRA_DATA_EMAIL,currentContact.getEmail());
         intent.putExtra(EXTRA_DATA_AGE,currentContact.getAge());

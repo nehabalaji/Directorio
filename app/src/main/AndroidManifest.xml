@@ -3,7 +3,7 @@
     package="com.example.contactsapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -12,9 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".list.DetailsActivity"
-            android:theme="@style/AppTheme2"
-            android:label=""/>
+        <activity android:name=".landingPageActivity"></activity>
+        <activity
+            android:name=".list.DetailsActivity"
+            android:label=""
+            android:theme="@style/AppTheme2" />
         <activity android:name=".addData.AddActivity" />
         <activity android:name=".list.MainActivity">
             <intent-filter>

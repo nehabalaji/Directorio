@@ -3,6 +3,7 @@ package com.example.contactsapp.addData;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,9 +17,12 @@ import android.widget.Toast;
 
 import com.example.contactsapp.R;
 import com.example.contactsapp.data.Contacts;
+import com.example.contactsapp.list.DetailsActivity;
+import com.example.contactsapp.list.MainActivity;
 
 public class AddActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    public static final String EXTRA_DATA_ID = "extra_data_id";
     public static final String EXTRA_DATA_NAME = "extra_contact_name";
     public static final String EXTRA_DATA_PHONE = "extra_contact_phone";
     public static final String EXTRA_DATA_EMAIL = "extra_contact_email";
@@ -30,6 +34,7 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     private addViewModel mAddViewModel;
     RadioButton radioButton;
     int imageID;
+    long ID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +51,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
         final EditText College = findViewById(R.id.newCollege);
         final EditText Email = findViewById(R.id.newEmail);
         final RadioGroup GenderGroup = findViewById(R.id.gender);
+        RadioButton male = findViewById(R.id.radioButton1);
+        RadioButton female = findViewById(R.id.radioButton2);
 
         TextView submit = findViewById(R.id.submit);
 
@@ -78,11 +85,11 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
             }
 
             if(!ContactGender.isEmpty()){
-                GenderGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(RadioGroup group, int checkedId) {
-                        radioButton = findViewById(checkedId);                    }
-                });
+               if (ContactGender.equals("Male")){
+                   male.setSelected(true);
+                }
+                else
+                    female.setSelected(true);
             }
 
             if(!ContactEmail.isEmpty()){
@@ -95,6 +102,8 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
             if(!ContactCollege.isEmpty()){
                 College.setText(ContactCollege);
+                College.setSelection(ContactCollege.length());
+                College.requestFocus();
             }
 
 
@@ -114,12 +123,16 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
                 String city = City.getText().toString();
                 String college = College.getText().toString();
                 if(!name.isEmpty() && !phone.isEmpty() && !age.isEmpty() && !gender.isEmpty() && !city.isEmpty() && !college.isEmpty() && !email.isEmpty()){
-                    if(extras!=null){
-                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college, imageID);
+                    if(extras!=null && extras.containsKey(EXTRA_DATA_ID)){
+                        ID = extras.getLong(EXTRA_DATA_ID, 0L);
+                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college, imageID, ID);
+                        Log.e("TAG", contacts.getName());
                         mAddViewModel.updateContacts(contacts);
+                        Intent intent = new Intent(AddActivity.this, MainActivity.class);
+                        startActivity(intent);
                     }
                     else{
-                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college, imageID);
+                        Contacts contacts = new Contacts(name, phone, email, age, gender, city, college, imageID, ID);
                         mAddViewModel.insertContact(contacts);
                         Toast.makeText(getApplicationContext(), "New Contact Added", Toast.LENGTH_SHORT).show();
                     }
@@ -142,4 +155,5 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

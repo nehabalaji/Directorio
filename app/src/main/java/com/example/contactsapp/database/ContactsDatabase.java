@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(entities = {Contacts.class}, version = 1, exportSchema = false)
+@Database(entities = {Contacts.class}, version = 2, exportSchema = false)
 public abstract class ContactsDatabase extends RoomDatabase {
 
     public abstract ContactsDao contactsDao();
@@ -48,8 +48,7 @@ public abstract class ContactsDatabase extends RoomDatabase {
                                         }
                                     });
                                 }
-                            })
-                            .fallbackToDestructiveMigration().build();
+                            }).fallbackToDestructiveMigration().build();
                 }
             }
         }
@@ -92,12 +91,13 @@ public abstract class ContactsDatabase extends RoomDatabase {
                 String gender = jsonObject.getString("Gender");
                 String city = jsonObject.getString("City");
                 String college = jsonObject.getString("College");
+
                 if(gender.equals("Female")){
                     imageId = R.drawable.girl;
                 }
                 else imageId = R.drawable.girl;
 
-                contactsDao.insertContact(new Contacts(name, phone, email, age, gender, city, college, imageId));
+                contactsDao.insertContact(new Contacts(name, phone, email, age, gender, city, college, imageId, 0L));
             }
         } catch (JSONException e) {
             e.printStackTrace();

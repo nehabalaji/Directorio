@@ -16,6 +16,8 @@ public class listViewModel extends AndroidViewModel {
     private ContactsRepository contactsRepository;
     public LiveData<PagedList<Contacts>> pagedListLiveData;
 
+    public LiveData<Contacts> contact;
+
     public listViewModel(@NonNull Application application) {
         super(application);
         contactsRepository = new ContactsRepository(application);
@@ -29,4 +31,5 @@ public class listViewModel extends AndroidViewModel {
     public void deleteContact(Contacts contacts){
         contactsRepository.deleteContact(contacts);
     }
+
 }
