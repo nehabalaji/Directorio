@@ -86,10 +86,10 @@ public class AddActivity extends AppCompatActivity implements AdapterView.OnItem
 
             if(!ContactGender.isEmpty()){
                if (ContactGender.equals("Male")){
-                   male.setSelected(true);
+                   male.setChecked(true);
                 }
                 else
-                    female.setSelected(true);
+                    female.setChecked(true);
             }
 
             if(!ContactEmail.isEmpty()){

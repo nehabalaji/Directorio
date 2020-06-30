@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
@@ -69,26 +70,6 @@ public class DetailsActivity extends AppCompatActivity {
         imageView = findViewById(R.id.image);
         button = findViewById(R.id.callButton);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_CALL);
-                intent.setData(Uri.parse(numberTV.toString()));
-
-                if (ActivityCompat.checkSelfPermission(DetailsActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    // TODO: Consider calling
-                    //    ActivityCompat#requestPermissions
-                    // here to request the missing permissions, and then overriding
-                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                    //                                          int[] grantResults)
-                    // to handle the case where the user grants the permission. See the documentation
-                    // for ActivityCompat#requestPermissions for more details.
-//                    requestPermissions(, 1);
-                    return;
-                }
-                startActivity(intent);
-            }
-        });
 
 
         actionBar = getSupportActionBar();
@@ -110,7 +91,7 @@ public class DetailsActivity extends AppCompatActivity {
                         if(ContactGender.equals("Female")){
                         imageId = R.drawable.girl;
                     }
-                    else imageId = R.drawable.girl;
+                    else imageId = R.drawable.boy;
 
                     contact = new Contacts(ContactName, ContactPhone, ContactEmail, ContactAge, ContactGender, ContactCity, ContactCollege, imageId, contactId );
 
@@ -145,6 +126,18 @@ public class DetailsActivity extends AppCompatActivity {
             imageView.setImageResource(imageId);
         }
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:"+ContactPhone));
+
+                startActivity(intent);
+
+            }
+        });
+
+
     }
 
     @Override
@@ -175,9 +168,9 @@ public class DetailsActivity extends AppCompatActivity {
             case R.id.share:
                 Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(Intent.EXTRA_TEXT,contact.getName() +"\n"+ contact.getNumber()
-                + "\n" + contact.getAge() + "\n" + contact.getGender() +"\n" + contact.getEmail() + "\n"
-                + contact.getCollege() + "\n" + contact.getCity());
+                sharingIntent.putExtra(Intent.EXTRA_TEXT,"Name : "+contact.getName() +"\n"+"Phone : "+ contact.getNumber()
+                + "\n" +"Age :" + contact.getAge() + "\n" +"Gender : "+ contact.getGender() +"\n" +"Email : "+ contact.getEmail() + "\n"
+                +"College : "+ contact.getCollege() + "\n" +"City : " + contact.getCity());
 
                 startActivity(Intent.createChooser(sharingIntent, "contact Details"));
 
@@ -187,5 +180,4 @@ public class DetailsActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 }

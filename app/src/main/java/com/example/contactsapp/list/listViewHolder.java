@@ -30,6 +30,6 @@ public class listViewHolder extends RecyclerView.ViewHolder {
             imageView.setImageResource(R.drawable.girl);
         }
         else
-            imageView.setImageResource(R.drawable.girl);
+            imageView.setImageResource(R.drawable.boy);
     }
 }

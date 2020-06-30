@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
+    android:background="@drawable/background4"
     tools:context=".list.MainActivity">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -24,10 +24,11 @@
         android:layout_marginEnd="52dp"
         android:layout_marginBottom="24dp"
         android:clickable="true"
-        app:backgroundTint="@android:color/white"
+        app:backgroundTint="@color/Pink"
+        android:tint="@color/White"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_circle_black_24dp"
+        app:srcCompat="@drawable/ic_add_black_24dp"
         android:focusable="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
