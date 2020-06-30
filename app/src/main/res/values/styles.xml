@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/White</item>
         <item name="colorPrimaryDark">@color/blue</item>
         <item name="colorAccent">@color/White</item>
+        <item name="android:navigationBarColor">@color/White</item>
 
     </style>
 
@@ -31,6 +32,7 @@
         <item name="colorPrimary">@color/White</item>
         <item name="colorPrimaryDark">@color/Pink</item>
         <item name="colorAccent">@color/White</item>
+        <item name="android:navigationBarColor">@color/White</item>
 
     </style>
 

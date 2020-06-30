@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="100dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:elevation="5dp"
         android:id="@+id/card_view"
         >
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/ll"
         android:id="@+id/ll1"
-        android:layout_margin="40dp"
+        android:layout_margin="30dp"
         android:gravity="center">
 
     <androidx.cardview.widget.CardView
@@ -144,7 +144,7 @@
         android:fontFamily="@font/roboto"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="30dp"
         android:textColor="@color/Pink"
         android:backgroundTint="#F1F1F1"
         android:layout_alignParentEnd="true"
